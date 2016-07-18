@@ -1,0 +1,14 @@
+package kr.ac.itschool.practice;
+
+import java.util.ArrayList;
+
+import kr.ac.itschool.entities.Member;
+
+public class MemberArrayListDemoMain {
+	
+	public static void main(String[] args){
+		MemberArrayListDemo obj = new MemberArrayListDemo();
+		ArrayList<Member> = obj.memberListGet();
+	}
+	
+}

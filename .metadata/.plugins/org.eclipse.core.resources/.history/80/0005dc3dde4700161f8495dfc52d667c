@@ -1,0 +1,61 @@
+package kr.ac.itschool.entities;
+
+public class Member {
+	private String name ;
+	private int  age ;
+	private String addr;
+	private String job;
+	private String phone;
+	private char grade;
+	private String hobby;
+	private int dept;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public String getAddr() {
+		return addr;
+	}
+	public void setAddr(String addr) {
+		this.addr = addr;
+	}
+	public String getJob() {
+		return job;
+	}
+	public void setJob(String job) {
+		this.job = job;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public char getGrade() {
+		return grade;
+	}
+	public void setGrade(char grade) {
+		this.grade = grade;
+	}
+	public String getHobby() {
+		return hobby;
+	}
+	public void setHobby(String hobby) {
+		this.hobby = hobby;
+	}
+	public int getDept() {
+		return dept;
+	}
+	public void setDept(int dept) {
+		this.dept = dept;
+	}	
+	
+}

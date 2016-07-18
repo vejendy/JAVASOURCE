@@ -1,0 +1,84 @@
+package kr.ac.itschool.practice;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
+public class GUICalClickListener implements ActionListener {
+	private JTextField text1;
+	private JTextField text2;
+	private String num1;
+	private String num2;
+	private String mark;
+	ArrayList <String> number1 = new ArrayList();
+	ArrayList <String> number2 = new ArrayList();
+	GUICalClickListener(JTextField text1, JTextField text2){
+		this.text1 = text1;
+		this.text2 = text2;
+		text2 = new JTextField("0");
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		int sum = 0;
+		String get = e.getActionCommand();
+		boolean numcheck = chkNum(get);
+		boolean start = true;
+		try{
+			if(numcheck){
+				text2.setText(text2.getText()+get);
+				number1.add(text2.getText());
+			} else if(get.equals("+")||get.equals("-")||get.equals("*")||get.equals("/")){
+				for(int i = 0 ; i < number1.size() ; i++){
+					num1 = number1.get(i);
+				}
+				mark = get;
+				text1.setText(text2.getText()+get);
+				text2.setText("");	
+			}
+			if ( get.equals("=")){
+				for (int j = 0 ; j < number1.size() ; j ++){
+					num2 = number1.get(j);
+				}  if(mark.equals("+"))
+					sum = Integer.parseInt(num1)+Integer.parseInt(num2);
+				else if (mark.equals("-"))
+					sum = Integer.parseInt(num1)-Integer.parseInt(num2);
+				else if (mark.equals("*"))
+					sum = Integer.parseInt(num1)*Integer.parseInt(num2);
+				else if (mark.equals("/")&&num2.equals("0"))
+					JOptionPane.showMessageDialog(text2, "0으로 나눌 수 없습니다");
+				else if (mark.equals("/"))
+					sum = Integer.parseInt(num1)/Integer.parseInt(num2);
+				text2.setText(sum+"");
+				text1.setText("");
+				number1.clear();
+				num1 = null;
+				num2 = null;
+				mark = null;
+				start = false;
+			}
+			if(get.equals("C")){
+				text1.setText("");
+				text2.setText("");
+				number1.clear();
+				num1 = null;
+				num2 = null;
+				mark = null;
+			}		
+		} catch(Exception ex){
+			text2.setText(null);
+			JOptionPane.showMessageDialog(text2, "수행 할 수 없습니다");
+		}		
+	}
+	boolean chkNum(String str) {
+		boolean numcheck = false;
+		try {
+			Integer.parseInt(str);
+			numcheck = true;
+		} catch(Exception e){
+		}
+		return numcheck;
+	}
+}

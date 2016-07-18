@@ -1,0 +1,17 @@
+package kr.ac.itschool.gui;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class WindowHelloCickListener implements ActionListener {
+	WindowHelloCickListener(JTextField text, JLabel label, JButton button1, JButton button2){
+		
+		
+	}
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		System.out.println("click...");
+		
+	}
+	
+}

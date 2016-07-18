@@ -1,0 +1,17 @@
+package kr.ac.itschool.gui;
+
+import java.awt.Container;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+public class MemberGuiMain {
+	public static void main(String[] args){
+		JFrame frame = new JFrame("Hellp Java Program");
+		Container contentPane = frame.getContentPane();
+		JLabel label = new JLabel("Hello, Java");
+		contentPane.add(label);
+		frame.pack();
+		frame.setVisible(true);
+	}
+}

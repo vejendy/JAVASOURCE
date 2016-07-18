@@ -1,0 +1,27 @@
+package kr.ac.itschool.practice;
+
+import kr.ac.itschool.entities.Member;
+
+public class JavaBeanDemo {
+	Member memberGet(){
+		Member data= new Member();
+		data.setName("kim");
+		data.setAge(25);
+		data.setAddr("대전시 서구");
+		data.setJob("developer");
+		data.setPhone("010-1234-5678");
+		data.setGrade('A');
+		data.setHobby("soccer");
+		return data;				
+	}
+	void memberSet( Member data ) {
+		String name = data.getName();
+		if ( name.equals("kim") ){
+			System.out.print( "이름: "+data.getName()+"addr: "+data.getAddr() );
+		}
+		else{
+			System.out.println("not found...");
+		}
+		System.out.println();
+	}
+}

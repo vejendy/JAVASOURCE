@@ -1,0 +1,58 @@
+package kr.ac.itschool.practice;
+
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class GUICalDemoMain {
+
+	public static void main(String[] args) {
+		JFrame frame = new JFrame("Calculator");
+		frame.setLocation(300,200);
+		frame.setPreferredSize(new Dimension(400,300));
+		Container contentPane = frame.getContentPane();
+		JPanel panel1 = new JPanel();
+		GridLayout layout = new GridLayout(4,4);
+		panel1.setLayout(layout);
+		panel1.add(new JButton("1"));
+		panel1.add(new JButton("2"));
+		panel1.add(new JButton("3"));
+		panel1.add(new JButton("+"));
+		panel1.add(new JButton("4"));
+		panel1.add(new JButton("5"));
+		panel1.add(new JButton("6"));
+		panel1.add(new JButton("-"));
+		panel1.add(new JButton("7"));
+		panel1.add(new JButton("8"));
+		panel1.add(new JButton("9"));
+		panel1.add(new JButton("*"));
+		panel1.add(new JButton("CE"));
+		panel1.add(new JButton("0"));
+		panel1.add(new JButton("="));
+		panel1.add(new JButton("/"));
+		
+		JPanel panel2 = new JPanel();
+		JTextField text = new JTextField(30);
+		panel2.add(text);
+		contentPane.add(panel1, BorderLayout.CENTER);
+		contentPane.add(panel2, BorderLayout.NORTH);
+//		ActionListener listener=
+//				new CalculatorClickListener(text1, text2,text3,label1); 
+//		button1.addActionListener(listener);
+//		button2.addActionListener(listener);
+//		button3.addActionListener(listener);
+//		button4.addActionListener(listener);
+//		button5.addActionListener(listener);
+		frame.pack();
+		frame.setVisible(true);
+
+	
+	}
+
+}
