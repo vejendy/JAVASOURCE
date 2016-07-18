@@ -1,0 +1,79 @@
+package member;
+
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+public class MemberGuiMain {
+	public static void main(String[] args){
+		JFrame frame = new JFrame("참가자 명단 프로그램");
+		frame.setPreferredSize(new Dimension(700,400));
+		frame.setLocation(500,400);
+		Container contentPane = frame.getContentPane();
+		Font font = new Font("바탕체", Font.TYPE1_FONT, 20);
+		String colName[] = { " id ","이름","전화번호" };
+		DefaultTableModel model = new DefaultTableModel (colName,0);
+		JTable table = new JTable(model);
+		contentPane.add(new JScrollPane(table), BorderLayout.WEST);
+		JPanel panel = new JPanel();
+		JButton insert = new JButton("입력");
+		JButton update = new JButton("수정");
+		JButton delete = new JButton("삭제");
+		JTextField find = new JTextField(9);
+		find.setFont(font);
+		JButton search = new JButton("검색");
+		JButton cancel = new JButton("취소");
+		panel.add(insert);
+		panel.add(update);
+		panel.add(delete);
+		panel.add(find);
+		panel.add(search);
+		panel.add(cancel);
+		contentPane.add(panel, BorderLayout.SOUTH);
+		JPanel panel1 = new JPanel();
+		panel1.setLayout( new GridLayout(5,2));
+		JLabel labelid = new JLabel( "ID" );
+		JTextField id = new JTextField(11);
+		JLabel labelname = new JLabel( "이름" );
+		JTextField name = new JTextField(11);
+		JLabel labelphone = new JLabel( "전화번호" );
+		JPanel phonepanel = new JPanel();
+		JTextField phone1 = new JTextField(3);
+		JLabel label1 = new JLabel( " - " );
+		JTextField phone2 = new JTextField(4);
+		JLabel label2 = new JLabel( " - " );
+		JTextField phone3 = new JTextField(4);
+		phonepanel.add(labelphone);
+		phonepanel.add(phone1);
+		phonepanel.add(label1);
+		phonepanel.add(phone2);
+		phonepanel.add(label2);
+		phonepanel.add(phone3);
+		
+		panel1.add(labelid);
+		panel1.add(id);
+		panel1.add(labelname);
+		panel1.add(name);
+		panel1.add(phonepanel);
+		
+		contentPane.add(panel1, BorderLayout.EAST);
+//		button1.addActionListener((ActionListener) new AddActionListener(table, text1, text2, text3));
+//		button2.addActionListener(new RemoveActionListener(table));
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.pack();
+		frame.setVisible(true);
+		
+	}
+}
+

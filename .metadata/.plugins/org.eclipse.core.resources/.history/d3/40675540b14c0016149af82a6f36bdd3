@@ -1,0 +1,121 @@
+package member;
+
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+public class MemberGuiMain {
+
+	public static void main(String[] args){
+		JFrame frame = new JFrame("참가자 명단 프로그램");
+		frame.setPreferredSize(new Dimension(700,400));
+		frame.setLocation(500,400);
+		Container contentPane = frame.getContentPane();
+		Font font = new Font("바탕체", Font.TYPE1_FONT, 20);
+		String colName[] = { " id ","이름","전화번호" };
+		DefaultTableModel model = new DefaultTableModel (colName,0);
+		JTable table = new JTable(model);
+		contentPane.add(new JScrollPane(table), BorderLayout.CENTER);
+		JPanel panel = new JPanel();
+		JButton insert = new JButton("입력");
+		JButton update = new JButton("수정");
+		JButton delete = new JButton("삭제");
+		JTextField find = new JTextField(9);
+		find.setFont(font);
+		JButton search = new JButton("검색");
+		JButton cancel = new JButton("취소");
+		panel.add(insert);
+		panel.add(update);
+		panel.add(delete);
+		panel.add(find);
+		panel.add(search);
+		panel.add(cancel);
+		contentPane.add(panel, BorderLayout.SOUTH);
+		JPanel panel1 = new JPanel();
+		GridLayout grid = new GridLayout(8,2) ;
+		grid.setVgap(5);
+		panel1.setLayout(grid);
+		panel1.setSize(200,	200);
+		JLabel labelid = new JLabel( "ID" );
+		labelid.setHorizontalAlignment(JLabel.CENTER);
+		JTextField id = new JTextField(11);
+		JButton check = new JButton("중복검사");
+		JPanel idpanel = new JPanel();
+		idpanel.add(id);
+		idpanel.add(check);
+		JLabel labelname = new JLabel( "이름" );
+		labelname.setHorizontalAlignment(JLabel.CENTER);
+		JTextField name = new JTextField(11);
+		JLabel labelpw = new JLabel( "비밀번호" );
+		labelpw.setHorizontalAlignment(JLabel.CENTER);
+		JTextField pw = new JTextField(11);
+		JLabel labelphone = new JLabel( "전화번호" );
+		labelphone.setHorizontalAlignment(JLabel.CENTER);
+		JPanel phonepanel = new JPanel();
+		JTextField phone1 = new JTextField(3);
+		JLabel label1 = new JLabel( " - " );
+		JTextField phone2 = new JTextField(4);
+		JLabel label2 = new JLabel( " - " );
+		JTextField phone3 = new JTextField(4);
+		
+		phonepanel.add(phone1);
+		phonepanel.add(label1);
+		phonepanel.add(phone2);
+		phonepanel.add(label2);
+		phonepanel.add(phone3);
+		
+		
+		JLabel labelpost = new JLabel("우편번호");
+		labelpost.setHorizontalAlignment(JLabel.CENTER);
+		JTextField post = new JTextField(6);
+		JLabel labeladdr = new JLabel("주소");
+		labeladdr.setHorizontalAlignment(JLabel.CENTER);
+		JTextField addr = new JTextField(11);
+		JLabel labeladdr1 = new JLabel(" ");
+		labeladdr1.setHorizontalAlignment(JLabel.CENTER);
+		JTextField addr1 = new JTextField(11);
+		
+		panel1.add(labelid);
+		panel1.add(idpanel);
+		panel1.add(labelpw);
+		panel1.add(pw);
+		panel1.add(labelname);
+		panel1.add(name);
+		panel1.add(labelphone);
+		panel1.add(phonepanel);
+		panel1.add(labelpost);
+		panel1.add(post);
+		panel1.add(labeladdr);
+		panel1.add(addr);
+		panel1.add(labeladdr1);
+		panel1.add(addr1);
+		
+		ActionListener listener = new MemberGuiActionListener(table, id, name, pw, phone1, phone2, phone3, post, addr, addr1) ;
+		
+		insert.addActionListener(listener);
+		update.addActionListener(listener);
+		delete.addActionListener(listener);
+		search.addActionListener(listener);
+		cancel.addActionListener(listener);
+		check.addActionListener(listener);
+		
+		contentPane.add(panel1, BorderLayout.EAST);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.pack();
+		frame.setVisible(true);
+		
+	}
+}
+
