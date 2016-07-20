@@ -1,9 +1,0 @@
-package kr.ac.itschool.parctice;
-
-public class MemberArrayListDemoMain {
-	
-	public static void main(String[] args){
-		
-	}
-	
-}

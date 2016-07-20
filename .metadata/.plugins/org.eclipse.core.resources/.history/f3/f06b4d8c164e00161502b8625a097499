@@ -1,0 +1,95 @@
+package member;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+import kr.ac.itschool.entities.Member;
+
+public class MemberGuiActionListener implements ActionListener {
+	boolean confirmchk;
+	DefaultTableModel model;
+	JTable table; JTextField find ;JTextField id; JTextField name; JTextField password; 
+	JTextField phone1; JTextField phone2; JTextField phone3; 
+	JTextField post; JTextField addr1; JTextField addr2;
+	
+	MemberGuiActionListener(boolean confirmchk, DefaultTableModel model, JTable table,JTextField find,JTextField id ,JTextField name,JTextField password,JTextField phone1,
+				JTextField phone2,JTextField phone3,JTextField post ,JTextField addr1,JTextField addr2) {
+		this.confirmchk = confirmchk;
+		this.model = model;
+		this.table = table;
+		this.find  = find;
+		this.id = id;
+		this.name = name;
+		this.password = password;
+		this.phone1 = phone1;
+		this.phone2 = phone2;
+		this.phone3 = phone3;
+		this.post = post;
+		this.addr1 = addr1;
+		this.addr2 = addr2;
+	}
+		
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String btntxt = e.getActionCommand();
+		if(btntxt.equals("중복검사")){
+			idConfirmChk();
+		}
+		String message = "- 입력시 체크사항 - \n\n";
+		if ( !confirmchk )
+			message += "중복검사 하세요! \n";
+		if (id.getText().equals("") || id.getText() == null) {
+			message += "ID를 입력하세요! \n";
+		}
+		if (name.getText().equals("") || name.getText() == null) {
+			message +=  "이름을 입력하세요!\n";
+		}
+		if (!message.equals("- 입력시 체크사항 - \n\n")){
+			JOptionPane.showMessageDialog(id, message);
+			return;
+		}
+		
+		Member data = new Member();
+		data.setId( id.getText() );
+		data.setName( name.getText() );
+		data.setPassword( password.getText() );
+		data.setPhone1( phone1.getText() );
+		data.setPhone2( phone2.getText() );
+		data.setPhone3( phone3.getText() );
+		data.setAddr1( addr1.getText() );
+		data.setAddr2( addr2.getText() );
+		
+		if ( btntxt.equals("입력")){
+			insertMember( data );
+		}
+	}
+	void idConfirmChk() {
+		confirmchk = true;
+	}
+	
+	void insertMember( Member data ) {
+		Object row[] ={ "", "", ""};
+		row[0] = data.getId();
+		row[1] = data.getName();
+		row[2] = data.getPhone1()+"-"+data.getPhone2()+"-"+data.getPhone3();
+		model.addRow( row );
+		screenClear();
+	}
+	void screenClear() {
+		id.setText("");;
+		password.setText("");
+		name.setText("");
+		phone1.setText("");
+		phone2.setText("");
+		phone3.setText("");
+		post.setText("");
+		addr1.setText("");
+		addr2.setText("");
+		confirmchk = false;
+	}
+}

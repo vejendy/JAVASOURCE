@@ -1,0 +1,5 @@
+package kr.ac.itschool.service;
+
+public class MemberDaoService {
+
+}

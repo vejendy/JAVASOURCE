@@ -1,0 +1,10 @@
+package kr.ac.itschool.service;
+
+public class MemberDaoService implements MemberDao{
+	DBConnectionManager db = DBConnectionManager.getInstance();
+	Connection cn = null;
+	PreparedStatement ps = null; //쿼리를 던지는 문장 
+	ResultSet rs =null;
+	
+	@Override
+}

@@ -1,7 +1,0 @@
-package kr.ac.itschool.practice;
-
-public class JavaBeanTestMain {
-	public static void  main(String []args){
-		
-	}
-}
