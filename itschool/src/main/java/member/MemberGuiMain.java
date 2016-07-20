@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 public class MemberGuiMain {
 
 	public static void main(String[] args){
+		boolean confirmchk = false;
 		JFrame frame = new JFrame("참가자 명단 프로그램");
 		frame.setPreferredSize(new Dimension(900,400));
 		frame.setLocation(500,400);
@@ -58,9 +59,9 @@ public class MemberGuiMain {
 		JLabel labelname = new JLabel( "이름" );
 		labelname.setHorizontalAlignment(JLabel.CENTER);
 		JTextField name = new JTextField(11);
-		JLabel labelpw = new JLabel( "비밀번호" );
-		labelpw.setHorizontalAlignment(JLabel.CENTER);
-		JTextField pw = new JTextField(11);
+		JLabel labelpassword = new JLabel( "비밀번호" );
+		labelpassword.setHorizontalAlignment(JLabel.CENTER);
+		JTextField password = new JTextField(11);
 		JLabel labelphone = new JLabel( "전화번호" );
 		labelphone.setHorizontalAlignment(JLabel.CENTER);
 		JPanel phonepanel = new JPanel();
@@ -80,29 +81,29 @@ public class MemberGuiMain {
 		JLabel labelpost = new JLabel("우편번호");
 		labelpost.setHorizontalAlignment(JLabel.CENTER);
 		JTextField post = new JTextField(6);
-		JLabel labeladdr = new JLabel("주소");
-		labeladdr.setHorizontalAlignment(JLabel.CENTER);
-		JTextField addr = new JTextField(11);
-		JLabel labeladdr1 = new JLabel(" ");
+		JLabel labeladdr1 = new JLabel("주소");
 		labeladdr1.setHorizontalAlignment(JLabel.CENTER);
 		JTextField addr1 = new JTextField(11);
+		JLabel labeladdr2 = new JLabel(" ");
+		labeladdr2.setHorizontalAlignment(JLabel.CENTER);
+		JTextField addr2 = new JTextField(11);
 		
 		panel1.add(labelid);
 		panel1.add(idpanel);
-		panel1.add(labelpw);
-		panel1.add(pw);
+		panel1.add(labelpassword);
+		panel1.add(password);
 		panel1.add(labelname);
 		panel1.add(name);
 		panel1.add(labelphone);
 		panel1.add(phonepanel);
 		panel1.add(labelpost);
 		panel1.add(post);
-		panel1.add(labeladdr);
-		panel1.add(addr);
 		panel1.add(labeladdr1);
 		panel1.add(addr1);
+		panel1.add(labeladdr2);
+		panel1.add(addr2);
 		
-		ActionListener listener = new MemberGuiActionListener(table, id, name, pw, phone1, phone2, phone3, post, addr, addr1) ;
+		ActionListener listener = new MemberGuiActionListener(confirmchk, model, table, find , id, name, password, phone1, phone2, phone3, post, addr1, addr2) ;
 		
 		insert.addActionListener(listener);
 		update.addActionListener(listener);
