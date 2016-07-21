@@ -128,4 +128,34 @@ public class MemberDaoService implements MemberDao{
 		return list;		
 	}
 
+	@Override
+	public Member selectRowone(String id) {
+		Member data = null;
+		String sql = "SELECT * FROM member where id = '"+id+"' ";
+		try{
+			cn = db.getConnection(); 
+			ps = (PreparedStatement) cn.prepareStatement( sql );
+			rs = ps.executeQuery();
+			if(rs.next()){
+				data = new Member();
+				data.setId( rs.getString("id"));
+				data.setName(rs.getString("name"));
+				data.setPassword(rs.getString("password"));
+				data.setPhone1(rs.getString("phone1"));
+				data.setPhone2(rs.getString("phone2"));
+				data.setPhone3(rs.getString("phone3"));
+				data.setPost(rs.getString("post"));
+				data.setAddr1(rs.getString("addr1"));
+				data.setAddr2(rs.getString("addr2"));
+				data.setCardno(rs.getString("cardno"));
+				data.setJob(rs.getString("job"));
+				data.setPicture(rs.getString("picture"));
+				data.setInputdate(rs.getString("inputdate"));
+			}
+		}  catch (Exception e) {
+			System.out.println("db error : "+e.getMessage());
+		}
+		return data;
+	}
+
 }

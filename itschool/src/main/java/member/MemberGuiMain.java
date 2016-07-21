@@ -1,6 +1,7 @@
 package member;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -15,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 public class MemberGuiMain {
 
@@ -25,9 +27,15 @@ public class MemberGuiMain {
 		frame.setLocation(500,400);
 		Container contentPane = frame.getContentPane();
 		Font font = new Font("바탕체", Font.TYPE1_FONT, 20);
+		Font font15 = new Font("고딕체", Font.TYPE1_FONT, 15);
 		String colName[] = { " ID ","이름","전화번호" };
 		DefaultTableModel model = new DefaultTableModel (colName,0);
 		JTable table = new JTable(model);
+		JTableHeader header = table.getTableHeader();
+		header.setPreferredSize(new Dimension(100,30));
+		header.setBackground(Color.LIGHT_GRAY);
+		table.setFont(font15);
+		table.setRowHeight(20);
 		contentPane.add(new JScrollPane(table), BorderLayout.CENTER);
 		JPanel panel = new JPanel();
 		JButton insert = new JButton("입력");
@@ -103,8 +111,11 @@ public class MemberGuiMain {
 		panel1.add(labeladdr2);
 		panel1.add(addr2);
 		
-		ActionListener listener = new MemberGuiActionListener(confirmchk, model, table, find , id, name, password, phone1, phone2, phone3, post, addr1, addr2) ;
 		
+		MemberGuiMouseListener mouse = new MemberGuiMouseListener(model, table, find , id, name, password, phone1, phone2, phone3, post, addr1, addr2) ;
+		table.addMouseListener( mouse );
+				
+		ActionListener listener = new MemberGuiActionListener(confirmchk, model, table, find , id, name, password, phone1, phone2, phone3, post, addr1, addr2) ;
 		insert.addActionListener(listener);
 		update.addActionListener(listener);
 		delete.addActionListener(listener);
@@ -116,7 +127,6 @@ public class MemberGuiMain {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
 		frame.setVisible(true);
-		
 	}
 }
 
