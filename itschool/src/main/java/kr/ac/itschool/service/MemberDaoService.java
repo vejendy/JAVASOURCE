@@ -3,6 +3,7 @@ package kr.ac.itschool.service;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import kr.ac.itschool.custom.CustomDateFormat;
 import kr.ac.itschool.dao.MemberDao;
@@ -64,22 +65,67 @@ public class MemberDaoService implements MemberDao{
 	}
 
 	@Override
-	public void selectAll() {
-		String sql = "SELECT * FROM student";
+	public ArrayList<Member> selectAll() {
+		ArrayList<Member> list = new ArrayList<Member>();
+		Member data = null;
+		String sql = "SELECT * FROM member";
 		try {
 			cn = db.getConnection(); 
 			ps = (PreparedStatement) cn.prepareStatement( sql );
 			rs = ps.executeQuery();
 			while (rs.next()){
-				System.out.print(" --> "+rs.getString(1)+" "+rs.getString(2)+rs.getInt("age"));
+				data = new Member();
+				data.setId( rs.getString("id"));
+				data.setName(rs.getString("name"));
+				data.setPassword(rs.getString("password"));
+				data.setPhone1(rs.getString("phone1"));
+				data.setPhone2(rs.getString("phone2"));
+				data.setPhone3(rs.getString("phone3"));
+				data.setPost(rs.getString("post"));
+				data.setAddr1(rs.getString("addr1"));
+				data.setAddr2(rs.getString("addr2"));
+				data.setCardno(rs.getString("cardno"));
+				data.setJob(rs.getString("job"));
+				data.setPicture(rs.getString("picture"));
+				data.setInputdate(rs.getString("inputdate"));
+				list.add( data );
 			}
-//			if ( rs.next() ) {  
-//				System.out.println( rs.getInt(1) );
-//			}
 		} catch (Exception e) {
 			System.out.println("db error : "+e.getMessage());
 		}
-		
+		return list;
+	}
+
+	@Override
+	public ArrayList<Member> selectFind( String find ) {
+		ArrayList<Member> list = new ArrayList<Member>();
+		Member data = null;
+		String sql = "SELECT * FROM member where id like '%"+find+"%' OR name like '%"+find+"%' ";
+		try {
+			cn = db.getConnection(); 
+			ps = (PreparedStatement) cn.prepareStatement( sql );
+			rs = ps.executeQuery();
+			while (rs.next()){
+				data = new Member();
+				data.setId( rs.getString("id"));
+				data.setName(rs.getString("name"));
+				data.setPassword(rs.getString("password"));
+				data.setPhone1(rs.getString("phone1"));
+				data.setPhone2(rs.getString("phone2"));
+				data.setPhone3(rs.getString("phone3"));
+				data.setPost(rs.getString("post"));
+				data.setAddr1(rs.getString("addr1"));
+				data.setAddr2(rs.getString("addr2"));
+				data.setCardno(rs.getString("cardno"));
+				data.setJob(rs.getString("job"));
+				data.setPicture(rs.getString("picture"));
+				data.setInputdate(rs.getString("inputdate"));
+				list.add( data );
+			}
+		} catch (Exception e) {
+			System.out.println("db error : "+e.getMessage());
+		}
+		return list;		
 	}
 
 }

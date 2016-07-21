@@ -25,7 +25,7 @@ public class MemberGuiMain {
 		frame.setLocation(500,400);
 		Container contentPane = frame.getContentPane();
 		Font font = new Font("바탕체", Font.TYPE1_FONT, 20);
-		String colName[] = { " id ","이름","전화번호" };
+		String colName[] = { " ID ","이름","전화번호" };
 		DefaultTableModel model = new DefaultTableModel (colName,0);
 		JTable table = new JTable(model);
 		contentPane.add(new JScrollPane(table), BorderLayout.CENTER);
