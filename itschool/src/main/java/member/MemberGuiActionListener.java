@@ -134,9 +134,10 @@ public class MemberGuiActionListener implements ActionListener {
 	}
 	void updateMember( Member data ) {
 		String result = service.updateRow(data);
-		 if ( !(id.getText().equals( ( model.getValueAt( table.getSelectedRow(), 0) ) ))){
+		String preid = (String) model.getValueAt( table.getSelectedRow(), 0 );
+		 if ( !( id.getText().equals( preid ) ) ){
 			 JOptionPane.showMessageDialog(id, "ID는 변경할 수 없습니다");
-			 id.setText((String) model.getValueAt(table.getSelectedRow(), 0));
+			 id.setText(preid);
 			 return;
 		 }
 				 
