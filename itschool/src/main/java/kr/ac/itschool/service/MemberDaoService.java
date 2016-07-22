@@ -11,7 +11,6 @@ import kr.ac.itschool.dbpool.DBConnectionManager;
 import kr.ac.itschool.entities.Member;
 
 public class MemberDaoService implements MemberDao{
-	boolean success = false;
 	DBConnectionManager db = DBConnectionManager.getInstance();
 	Connection cn = null;
 	PreparedStatement ps = null; 
@@ -19,6 +18,7 @@ public class MemberDaoService implements MemberDao{
 	
 	@Override
 	public boolean insertRow(Member data) {
+		boolean success = false;
 		String inputdate = CustomDateFormat.mydateFormat();
 		StringBuilder sb = new StringBuilder();
 		sb.append("INSERT INTO member (id,name,password,phone1,phone2");
@@ -29,7 +29,6 @@ public class MemberDaoService implements MemberDao{
 		sb.append(" '"+data.getPost()+"','"+data.getAddr1()+"','"+data.getAddr2()+"', ");
 		sb.append(" '"+data.getCardno()+"','"+data.getJob()+"','"+data.getPicture()+"','"+inputdate+"')") ;
 		String sql = sb.toString();
-		System.out.println(sql);
 		try{
 			cn = db.getConnection();
 			ps = (PreparedStatement) cn.prepareStatement( sql ); 
@@ -90,6 +89,9 @@ public class MemberDaoService implements MemberDao{
 				data.setInputdate(rs.getString("inputdate"));
 				list.add( data );
 			}
+			cn.close();
+			ps.close();
+			rs.close();
 		} catch (Exception e) {
 			System.out.println("db error : "+e.getMessage());
 		}
@@ -122,6 +124,9 @@ public class MemberDaoService implements MemberDao{
 				data.setInputdate(rs.getString("inputdate"));
 				list.add( data );
 			}
+			cn.close();
+			ps.close();
+			rs.close();
 		} catch (Exception e) {
 			System.out.println("db error : "+e.getMessage());
 		}
@@ -152,10 +157,38 @@ public class MemberDaoService implements MemberDao{
 				data.setPicture(rs.getString("picture"));
 				data.setInputdate(rs.getString("inputdate"));
 			}
+			cn.close();
+			ps.close();
+			rs.close();
 		}  catch (Exception e) {
 			System.out.println("db error : "+e.getMessage());
 		}
 		return data;
+	}
+
+	@Override
+	public String updateRow(Member data) {
+		String result = "";
+		String inputdate = CustomDateFormat.mydateFormat();
+		StringBuilder sb = new StringBuilder();
+		try{
+			sb.append("UPDATE MEMBER SET password='"+data.getPassword()+"', name='"+data.getName()+"', ");
+			sb.append(" phone1='"+data.getPhone1()+"',phone2='"+data.getPhone2()+"',phone3='"+data.getPhone3()+"', ");
+			sb.append(" post='"+data.getPost()+"',addr1='"+data.getAddr1()+"',addr2='"+data.getAddr2()+"', ");
+			sb.append(" cardno='"+data.getCardno()+"',job='"+data.getJob()+"',picture='"+data.getPicture()+"',inputdate='"+inputdate+"'") ;
+			sb.append(" where id='"+data.getId()+"' ");
+			String sql = sb.toString();
+			cn = db.getConnection();
+			ps = (PreparedStatement) cn.prepareStatement( sql ); 
+			ps.execute();
+			cn.close();
+			ps.close();
+			rs.close();
+		} catch (Exception e) {
+			result = e.getMessage();
+			System.out.println("db error : "+result);
+		}
+		return result;
 	}
 
 }

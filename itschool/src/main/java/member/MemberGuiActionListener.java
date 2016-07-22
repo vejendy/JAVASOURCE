@@ -47,9 +47,8 @@ public class MemberGuiActionListener implements ActionListener {
 			confirmchk = true;
 		}
 		return confirmchk;
-}
-	
-		
+	}
+			
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String btntxt = e.getActionCommand();
@@ -95,6 +94,13 @@ public class MemberGuiActionListener implements ActionListener {
 		if ( btntxt.equals("검색")){
 			searchMember( find.getText() );
 		}
+		if ( btntxt.equals("수정")){
+			if(id.getText().equals("")){
+				JOptionPane.showMessageDialog(id,"검색 후 수정 항목을 선택하세요");
+				return;
+			}
+			updateMember( data );
+		}
 	}
 
 	
@@ -126,6 +132,26 @@ public class MemberGuiActionListener implements ActionListener {
 		}		
 		
 	}
+	void updateMember( Member data ) {
+		String result = service.updateRow(data);
+		 if ( !(id.getText().equals( ( model.getValueAt( table.getSelectedRow(), 0) ) ))){
+			 JOptionPane.showMessageDialog(id, "ID는 변경할 수 없습니다");
+			 id.setText((String) model.getValueAt(table.getSelectedRow(), 0));
+			 return;
+		 }
+				 
+		if(result.equals("")){
+			JOptionPane.showMessageDialog(id, "수정 되었습니다");
+//			searchMember(result);
+			screenClear();
+			table.getSelectionModel();
+			model.setValueAt(data.getName(), table.getSelectedRow(), 1);
+			String phone = data.getPhone1()+"-"+data.getPhone2()+"-"+data.getPhone3();
+			model.setValueAt(phone, table.getSelectedRow(), 2);
+		} else {
+			JOptionPane.showMessageDialog(id, "수정 실패 \n"+result);
+		}
+	}
 	void searchMember( String find ){
 		model.setRowCount(0);
 		ArrayList<Member> list = null;
@@ -153,4 +179,5 @@ public class MemberGuiActionListener implements ActionListener {
 		addr2.setText("");
 		confirmchk = false;
 	}
+	
 }
