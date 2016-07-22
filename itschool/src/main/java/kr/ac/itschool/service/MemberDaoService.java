@@ -15,10 +15,10 @@ public class MemberDaoService implements MemberDao{
 	Connection cn = null;
 	PreparedStatement ps = null; 
 	ResultSet rs =null;
+	boolean success = false;
 	
 	@Override
 	public boolean insertRow(Member data) {
-		boolean success = false;
 		String inputdate = CustomDateFormat.mydateFormat();
 		StringBuilder sb = new StringBuilder();
 		sb.append("INSERT INTO member (id,name,password,phone1,phone2");
@@ -36,7 +36,6 @@ public class MemberDaoService implements MemberDao{
 			success = true; 
 			cn.close();
 			ps.close();
-			rs.close();
 		} catch (Exception e){
 			System.out.println(e.getMessage());
 		}
@@ -183,12 +182,27 @@ public class MemberDaoService implements MemberDao{
 			ps.execute();
 			cn.close();
 			ps.close();
-			rs.close();
 		} catch (Exception e) {
 			result = e.getMessage();
 			System.out.println("db error : "+result);
 		}
 		return result;
+	}
+
+	@Override
+	public boolean deleteRow(String id) {
+		String sql = "DELETE FROM member where id = '"+id+"' ";  /* 문자: ' "+id+" ' =>따옴표 확인! int : "+숫자+" */
+		try {
+			cn = db.getConnection();
+			ps = (PreparedStatement) cn.prepareStatement( sql ); 
+			ps.execute();
+			success = true;
+			cn.close();
+			ps.close();
+		} catch (Exception e) {
+			
+		}
+		return success;
 	}
 
 }

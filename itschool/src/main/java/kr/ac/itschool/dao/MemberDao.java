@@ -11,4 +11,5 @@ public interface MemberDao {
 	public ArrayList<Member> selectAll();
 	public ArrayList<Member> selectFind( String find );
 	public String updateRow( Member data ) ;
+	public boolean deleteRow( String id ) ;
 }

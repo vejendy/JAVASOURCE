@@ -94,12 +94,19 @@ public class MemberGuiActionListener implements ActionListener {
 		if ( btntxt.equals("검색")){
 			searchMember( find.getText() );
 		}
+		if ( btntxt.equals("취소")){
+			model.setRowCount(0);
+			screenClear();
+		}
 		if ( btntxt.equals("수정")){
 			if(id.getText().equals("")){
 				JOptionPane.showMessageDialog(id,"검색 후 수정 항목을 선택하세요");
 				return;
 			}
 			updateMember( data );
+		}
+		if ( btntxt.equals("삭제")){
+			deleteMember( id.getText() );
 		}
 	}
 
@@ -134,15 +141,16 @@ public class MemberGuiActionListener implements ActionListener {
 	}
 	void updateMember( Member data ) {
 		String result = service.updateRow(data);
-		String preid = (String) model.getValueAt( table.getSelectedRow(), 0 );
-		 if ( !( id.getText().equals( preid ) ) ){
+		String before = (String) model.getValueAt( table.getSelectedRow(), 0 ); //이전 id 값을 찾기 위해 테이블에서 끌어옴
+		String after = id.getText(); //수정하려고 id를 변경하여 입력한 값
+		 if ( !after.equals( before ) ){
 			 JOptionPane.showMessageDialog(id, "ID는 변경할 수 없습니다");
-			 id.setText(preid);
+			 id.setText(before);
 			 return;
 		 }
 				 
 		if(result.equals("")){
-			JOptionPane.showMessageDialog(id, "수정 되었습니다");
+			JOptionPane.showMessageDialog(table, "수정 되었습니다");
 //			searchMember(result);
 			screenClear();
 			table.getSelectionModel();
@@ -150,7 +158,7 @@ public class MemberGuiActionListener implements ActionListener {
 			String phone = data.getPhone1()+"-"+data.getPhone2()+"-"+data.getPhone3();
 			model.setValueAt(phone, table.getSelectedRow(), 2);
 		} else {
-			JOptionPane.showMessageDialog(id, "수정 실패 \n"+result);
+			JOptionPane.showMessageDialog(table, "수정 실패 \n"+result);
 		}
 	}
 	void searchMember( String find ){
@@ -166,6 +174,25 @@ public class MemberGuiActionListener implements ActionListener {
 			row[1] = list1.getName();
 			row[2] = list1.getPhone1()+"-"+list1.getPhone2()+"-"+list1.getPhone3();
 			model.addRow( row );
+		}
+		if(model.getRowCount()==0){
+			JOptionPane.showMessageDialog( table , find +"을(를) 찾을 수 없습니다 ");
+			this.find.setText("");
+		}
+	}
+	void deleteMember( String id ){
+		int result = JOptionPane.showConfirmDialog(null, "삭제하시겠습니까?" , "delete Warning",
+				JOptionPane.OK_CANCEL_OPTION);
+		int row = table.getSelectedRow();
+		if (result == 0){
+			boolean success = service.deleteRow(id);
+			if(success){
+				JOptionPane.showMessageDialog(table, "삭제 완료!");
+				model.removeRow( row );
+				screenClear();
+			}
+		} else{
+			return;
 		}
 	}
 	void screenClear() {

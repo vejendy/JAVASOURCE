@@ -3,6 +3,7 @@ package member;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -37,11 +38,21 @@ public class MemberGuiMouseListener implements MouseListener{
 	public void mouseClicked(MouseEvent e) {
 		JTable target = (JTable) e.getSource();
 		int row = target.getSelectedRow();
+		if (row == -1){
+			JOptionPane.showMessageDialog(target, "항목을 선택하세요");
+			return;
+		}
 		String id = (String) target.getValueAt(row , 0);
+		String name = (String) target.getValueAt(row , 1); 
+		
+		if( e.getButton() == 3 ){
+			deleteMember( id, name , row );
+			return;
+		}
 		MemberDaoService service = new MemberDaoService();
 		Member data = service.selectRowone(id);
 		this.id.setText( data.getId() );
-		name.setText( data.getName() );
+		this.name.setText( data.getName() );
 		password.setText( data.getPassword());
 		phone1.setText(data.getPhone1());
 		phone2.setText(data.getPhone2());
@@ -62,5 +73,19 @@ public class MemberGuiMouseListener implements MouseListener{
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
+	}
+	void deleteMember(String id , String name, int row){
+		int result = JOptionPane.showConfirmDialog(null, "ID : "+id+"\n"+"NAME : "+name+"\n"+"Do you want to DELETE?" , "del",
+			JOptionPane.OK_CANCEL_OPTION);
+		if ( result == 0 ){
+			MemberDaoService service = new MemberDaoService();
+			boolean success = service.deleteRow(id);
+			if(success){
+				JOptionPane.showMessageDialog(table, "삭제가 완료되었습니다");
+				model.removeRow(row);
+			}			
+		} else {
+			return;
+		}
 	}
 }
