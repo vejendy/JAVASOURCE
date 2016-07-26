@@ -102,6 +102,7 @@ public class MemberDaoService implements MemberDao{
 		ArrayList<Member> list = new ArrayList<Member>();
 		Member data = null;
 		String sql = "SELECT * FROM member where id like '%"+find+"%' OR name like '%"+find+"%' ";
+		System.out.println(sql);
 		try {
 			cn = db.getConnection(); 
 			ps = (PreparedStatement) cn.prepareStatement( sql );
