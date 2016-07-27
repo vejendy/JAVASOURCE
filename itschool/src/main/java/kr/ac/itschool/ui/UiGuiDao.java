@@ -6,7 +6,9 @@ public interface UiGuiDao {
 	public boolean checkCode( String code );
 	public boolean insertRow( Bean data );
 	ArrayList<Bean> searchRowAll();
-	void updateRow();
-	void deleteRow();
+	public boolean updateRow(Bean data);
+	public boolean deleteRow(String code);
 	ArrayList<Bean> searchRowOne(String find);
+	public Bean selectRowOne(String code);
+	
 }

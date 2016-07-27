@@ -7,8 +7,11 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -108,10 +111,20 @@ public class UiGuiMain {
 		labelmanager.setHorizontalAlignment(JLabel.CENTER);
 		JTextField manager = new JTextField(10);
 		
+//		JComboBox combo = new JComboBox();
+//		String comarr[] = {"010","011","016","017","019"};
+//		combo.setModel( new DefaultComboBoxModel(comarr));
+//		JPanel = new JPanel();
+//		panel.add(combo);
+//		contentPane.add(panel, BorderLayout.CENTER);
+		
+		
 		JLabel labelphone = new JLabel( "전화번호" );
 		labelphone.setHorizontalAlignment(JLabel.CENTER);
 		JPanel phonepanel = new JPanel();
-		JTextField phone1 = new JTextField(3);
+		JComboBox phone1 = new JComboBox();
+		String comarr[] = {"010","011","016","017","019"};
+		phone1.setModel( new DefaultComboBoxModel(comarr));
 		JLabel label1 = new JLabel( " - " );
 		JTextField phone2 = new JTextField(4);
 		JLabel label2 = new JLabel( " - " );
@@ -145,9 +158,11 @@ public class UiGuiMain {
 		panel1.add(labelphone);
 		panel1.add(phonepanel);
 		
-		ActionListener listener = new UiGuiActionListener( model, table, find ,code, name, licence1, licence2, licence3, chief, post, add1, add2, business, type,
+		ActionListener listener = new UiGuiActionListener( model, table,find ,code, name, licence1, licence2, licence3, chief, post, add1, add2, business, type,
 				manager, phone1, phone2, phone3 );
-		
+		MouseListener mouse = new UiGuiActionListener( model, table,find ,code, name, licence1, licence2, licence3, chief, post, add1, add2, business, type,
+				manager, phone1, phone2, phone3 );
+		table.addMouseListener(mouse);
 		insert.addActionListener(listener);
 		update.addActionListener(listener);
 		delete.addActionListener(listener);
