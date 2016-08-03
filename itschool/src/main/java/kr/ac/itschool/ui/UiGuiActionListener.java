@@ -226,7 +226,6 @@ public class UiGuiActionListener implements ActionListener , MouseListener{
 			return;
 		}
 		String code = (String) target.getValueAt(row , 0);
-		
 		Bean data = service.selectRowOne(code);
 		this.code.setText(data.getCode());
 		name.setText(data.getName());
