@@ -10,8 +10,6 @@ public interface AschoolDao {
 	boolean insertRow(StudMember data);
 	boolean updateRow(StudMember data);
 	boolean deleteRow(String code);
-	String deptTrans(String dept);
-	String profTrans(String prof);
 	StudMember selectRowOne(String code);
 	boolean insertDept(DeptMember data2);
 	boolean updateDept(DeptMember data2);

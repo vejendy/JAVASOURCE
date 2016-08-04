@@ -41,8 +41,6 @@ public class AschoolDaoService implements AschoolDao{
 			System.out.println("DB error : "+e.getMessage());
 		}
 		return list;
-		
-		
 	}
 	
 	@Override
@@ -96,7 +94,6 @@ public class AschoolDaoService implements AschoolDao{
 			result = false;
 		}
 		return result;
-		
 	}
 
 	@Override
@@ -119,7 +116,6 @@ public class AschoolDaoService implements AschoolDao{
 			System.out.println("DB error 수: "+e.getMessage());
 		}	
 		return result;
-		
 	}
 
 	@Override
@@ -137,12 +133,11 @@ public class AschoolDaoService implements AschoolDao{
 			System.out.println("DB error 삭: "+e.getMessage());
 		}
 		return result;
-		
 	}
 
 	@Override
 	public ArrayList<DeptMember> comboDept() {
-		String sql = "SELECT name FROM dept";
+		String sql = "SELECT code, name FROM dept";
 		DeptMember data2 = null;
 		ArrayList<DeptMember> deptlist = new ArrayList<DeptMember>();
 		try {
@@ -151,6 +146,7 @@ public class AschoolDaoService implements AschoolDao{
 			rs = ps.executeQuery();
 			while(rs.next()){
 				data2 = new DeptMember();
+				data2.setCode(rs.getString("code")) ;
 				data2.setName(rs.getString("name")) ;
 				deptlist.add(data2);
 			}
@@ -162,12 +158,11 @@ public class AschoolDaoService implements AschoolDao{
 			System.out.println("combo  "+e.getMessage());
 		}
 		return deptlist;
-		
 	}
 
 	@Override
 	public ArrayList<ProfMember> comboProf() {
-		String sql = "SELECT name FROM professor";
+		String sql = "SELECT code , name FROM professor";
 		ProfMember data1 = null;
 		ArrayList<ProfMember> proflist = new ArrayList<ProfMember>();
 		try {
@@ -176,6 +171,7 @@ public class AschoolDaoService implements AschoolDao{
 			rs = ps.executeQuery();
 			while(rs.next()){
 				data1 = new ProfMember();
+				data1.setCode(rs.getString("code")) ;
 				data1.setName(rs.getString("name")) ;
 				proflist.add(data1);
 			}
@@ -187,50 +183,8 @@ public class AschoolDaoService implements AschoolDao{
 			System.out.println("DB error :  "+e.getMessage());
 		}
 		return proflist;
-		
 	}
 
-	@Override
-	public String deptTrans(String dept) {
-		String sql = "SELECT code FROM dept where name = '"+dept+"'";
-		String transdept = new String();
-		try {
-			cn = db.getConnection();
-			ps = cn.prepareStatement(sql);
-			rs = ps.executeQuery();
-			if(rs.next()){
-				transdept = rs.getString("code");
-			}
-			cn.close();
-			ps.close();
-			rs.close();	
-		}
-		catch (Exception e) {
-			System.out.println("DB error :  "+e.getMessage());
-		}
-		return transdept;
-	}
-
-	@Override
-	public String profTrans(String prof) {
-		String sql = "SELECT code FROM professor where name = '"+prof+"'";
-		String transprof = new String();
-		try {
-			cn = db.getConnection();
-			ps = cn.prepareStatement(sql);
-			rs = ps.executeQuery();
-			if(rs.next()){
-				transprof = rs.getString("code");
-			}
-			cn.close();
-			ps.close();
-			rs.close();	
-		}
-		catch (Exception e) {
-			System.out.println("DB error :  "+e.getMessage());
-		}
-		return transprof;
-	}
 
 	@Override
 	public StudMember selectRowOne(String code) {

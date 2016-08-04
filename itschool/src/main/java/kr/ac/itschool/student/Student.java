@@ -82,14 +82,16 @@ public class Student implements ActionListener{
 		labeldept.setHorizontalAlignment(JLabel.CENTER);
 		
 		
+
 		JComboBox dept = new JComboBox();
 		ArrayList<DeptMember> deptlist = new ArrayList<DeptMember>();
 		deptlist = service.comboDept();
 		String[] deptlist1 = new String[deptlist.size()] ;
 		for(int i =0 ; i < deptlist1.length ; i++ ){
-			deptlist1[i] = deptlist.get(i).getName() ;	
+			deptlist1[i] = deptlist.get(i).getCode()+" "+deptlist.get(i).getName() ;	
 		}
 		dept.setModel( new DefaultComboBoxModel(deptlist1));
+		
 		JLabel labelname = new JLabel( "이 름" );
 		labelname.setHorizontalAlignment(JLabel.CENTER);
 		JTextField name = new JTextField(20);
@@ -112,7 +114,7 @@ public class Student implements ActionListener{
 		proflist = service.comboProf();
 		String[] proflist1 = new String[proflist.size()] ;
 		for(int i =0 ; i< proflist1.length ; i++ ){
-			proflist1[i] = proflist.get(i).getName() ;	
+			proflist1[i] = proflist.get(i).getName()+ " " +proflist.get(i).getCode() ;	
 		}
 		professor.setModel( new DefaultComboBoxModel(proflist1));
 		

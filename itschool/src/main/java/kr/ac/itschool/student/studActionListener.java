@@ -90,10 +90,13 @@ public class studActionListener implements ActionListener , MouseListener{
 			code.setText(before);
 			return;
 		}
-		String deptcode = service.deptTrans(dept.getSelectedItem().toString());
-		data.setDept(deptcode);
-		String profcode = service.profTrans(professor.getSelectedItem().toString());
-		data.setProfessor(profcode);
+		String[] deptcode = dept.getSelectedItem().toString().split(" ");
+		String deptcode1 = deptcode[0];
+		data.setDept(deptcode1);
+		String[] profcode = professor.getSelectedItem().toString().split(" ");
+		String profcode1 = profcode[1];
+		data.setProfessor(profcode1);
+	
 		boolean result = service.updateRow(data);
 		if(result){
 			JOptionPane.showMessageDialog(null, "수정 완료");
@@ -120,10 +123,12 @@ public class studActionListener implements ActionListener , MouseListener{
 			JOptionPane.showMessageDialog(null, msg);
 			return;
 		}
-		String deptcode = service.deptTrans(dept.getSelectedItem().toString());
-		data.setDept(deptcode);
-		String profcode = service.profTrans(professor.getSelectedItem().toString());
-		data.setProfessor(profcode);
+		String[] deptcode = dept.getSelectedItem().toString().split(" ");
+		String deptcode1 = deptcode[0];
+		data.setDept(deptcode1);
+		String[] profcode = professor.getSelectedItem().toString().split(" ");
+		String profcode1 = profcode[1];
+		data.setProfessor(profcode1);
 		boolean result = service.insertRow(data);
 		if ( result ){
 			JOptionPane.showMessageDialog(null , "저장완료");
@@ -188,13 +193,15 @@ public class studActionListener implements ActionListener , MouseListener{
 		String code = (String) target.getValueAt(row, 0);
 		StudMember data = service.selectRowOne(code);
 		this.code.setText(data.getCode());
-		dept.setSelectedItem(data.getDept_name());
+		String dept1 = data.getDept() + " "+ data.getDept_name();
+		dept.setSelectedItem(dept1);
 		name.setText(data.getName());
 		idcard.setText(data.getIdcard());
 		postno.setText(data.getPostno());
 		addr1.setText(data.getAddr1());
 		addr2.setText(data.getAddr2());
-		professor.setSelectedItem(data.getProf_name());
+		String prof1 = data.getProf_name()+" "+ data.getProfessor();
+		professor.setSelectedItem(prof1);
 	}
 	@Override
 	public void mouseEntered(MouseEvent e) {
