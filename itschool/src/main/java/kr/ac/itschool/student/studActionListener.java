@@ -27,14 +27,18 @@ public class studActionListener implements ActionListener , MouseListener{
 	public void actionPerformed(ActionEvent e) {
 		String btn = e.getActionCommand();
 		StudMember data = new StudMember();
+		ProfMember data1 = ( ProfMember ) professor.getSelectedItem();
+		DeptMember data2 = ( DeptMember ) dept.getSelectedItem();
+		
 		data.setCode(code.getText());
-		data.setDept(dept.getSelectedItem().toString());
+		data.setDept(data2.getCode());
 		data.setName(name.getText());
 		data.setIdcard(idcard.getText());
 		data.setPostno(postno.getText());
 		data.setAddr1(addr1.getText());
 		data.setAddr2(addr2.getText());
-		data.setProfessor(professor.getSelectedItem().toString());
+		data.setProfessor(data1.getCode());
+		
 		if(btn.equals("입력")){
 			insertStud( data , btn );
 		}
@@ -90,12 +94,12 @@ public class studActionListener implements ActionListener , MouseListener{
 			code.setText(before);
 			return;
 		}
-		String[] deptcode = dept.getSelectedItem().toString().split(" ");
-		String deptcode1 = deptcode[0];
-		data.setDept(deptcode1);
-		String[] profcode = professor.getSelectedItem().toString().split(" ");
-		String profcode1 = profcode[1];
-		data.setProfessor(profcode1);
+//		String[] deptcode = dept.getSelectedItem().toString().split(" ");
+//		String deptcode1 = deptcode[0];
+//		data.setDept(deptcode1);
+//		String[] profcode = professor.getSelectedItem().toString().split(" ");
+//		String profcode1 = profcode[1];
+//		data.setProfessor(profcode1);
 	
 		boolean result = service.updateRow(data);
 		if(result){
@@ -192,16 +196,27 @@ public class studActionListener implements ActionListener , MouseListener{
 		}
 		String code = (String) target.getValueAt(row, 0);
 		StudMember data = service.selectRowOne(code);
+		ProfMember data1 = ( ProfMember ) professor.getSelectedItem();
+		DeptMember data2 = ( DeptMember ) dept.getSelectedItem();
+		data2.setCode(data.getDept());
+		data2.setName(data.getDept_name());
 		this.code.setText(data.getCode());
-		String dept1 = data.getDept() + " "+ data.getDept_name();
-		dept.setSelectedItem(dept1);
+//		String dept1 = data.getDept() + " "+ data.getDept_name();
+		System.out.println("이름  : "+data2.getName()+"    코드   :   "+data2.getCode());
+		System.out.println("data.getdept ==> "+data.getDept());
+		System.out.println("data.getdeptname ==> "+data.getDept_name());
+		
+		dept.setSelectedItem( new DeptMember(data2.getName(), data2.getCode()) ) ;
+//		dept.setSelectedItem(data2.getCode());
 		name.setText(data.getName());
 		idcard.setText(data.getIdcard());
 		postno.setText(data.getPostno());
 		addr1.setText(data.getAddr1());
 		addr2.setText(data.getAddr2());
-		String prof1 = data.getProf_name()+" "+ data.getProfessor();
-		professor.setSelectedItem(prof1);
+		
+		
+//		String prof1 = data.getProf_name()+" "+ data.getProfessor();
+		professor.setSelectedItem(data.getProf_name());
 	}
 	@Override
 	public void mouseEntered(MouseEvent e) {

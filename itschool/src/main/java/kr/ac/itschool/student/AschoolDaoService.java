@@ -137,7 +137,7 @@ public class AschoolDaoService implements AschoolDao{
 
 	@Override
 	public ArrayList<DeptMember> comboDept() {
-		String sql = "SELECT code, name FROM dept";
+		String sql = "SELECT * FROM dept";
 		DeptMember data2 = null;
 		ArrayList<DeptMember> deptlist = new ArrayList<DeptMember>();
 		try {
@@ -188,8 +188,9 @@ public class AschoolDaoService implements AschoolDao{
 
 	@Override
 	public StudMember selectRowOne(String code) {
-		String sql = "select * from student,dept,professor where student.code='"+code+"' "
-				+ " and student.dept = dept.code and student.professor = professor.code ";
+		String sql = "select A.code , A.dept , A.name , A.idcard , A.postno , A.addr1 , A.addr2 , A.professor , B.name , C.name"
+				+ " from student A, dept B, professor C where A.code='"+code+"' "
+				+ " and A.dept = B.code and A.professor = C.code ";
 		StudMember data = null ;
 		try {
 			cn = db.getConnection();
@@ -197,16 +198,16 @@ public class AschoolDaoService implements AschoolDao{
 			rs = ps.executeQuery();
 			while(rs.next()){
 				data = new StudMember();
-				data.setCode(rs.getString("code"));
-				data.setDept(rs.getString("dept"));
-				data.setName(rs.getString("name"));
-				data.setIdcard(rs.getString("idcard"));
-				data.setPostno(rs.getString("postno"));
-				data.setAddr1(rs.getString("addr1"));
-				data.setAddr2(rs.getString("addr2"));
-				data.setProfessor(rs.getString("professor"));
-				data.setDept_name(rs.getString(11));
-				data.setProf_name(rs.getString(13));
+				data.setCode(rs.getString(1));
+				data.setDept(rs.getString(2));
+				data.setName(rs.getString(3));
+				data.setIdcard(rs.getString(4));
+				data.setPostno(rs.getString(5));
+				data.setAddr1(rs.getString(6));
+				data.setAddr2(rs.getString(7));
+				data.setProfessor(rs.getString(8));
+				data.setDept_name(rs.getString(9));
+				data.setProf_name(rs.getString(10));
 			}
 			cn.close();
 			ps.close();

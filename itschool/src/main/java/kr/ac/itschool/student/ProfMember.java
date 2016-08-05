@@ -5,6 +5,12 @@ public class ProfMember {
 	private String code;
 	private String labno;
 	private String subject;
+	public ProfMember() {
+	}
+	
+	public ProfMember(String name , String code ) {
+		this.code = code;	this.name = name; 
+	}
 	
 	public String getName() {
 		return name;
@@ -30,6 +36,6 @@ public class ProfMember {
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-	
-	
+	@Override
+	public String  toString() { return name; }
 }

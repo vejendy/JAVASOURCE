@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -86,11 +85,9 @@ public class Student implements ActionListener{
 		JComboBox dept = new JComboBox();
 		ArrayList<DeptMember> deptlist = new ArrayList<DeptMember>();
 		deptlist = service.comboDept();
-		String[] deptlist1 = new String[deptlist.size()] ;
-		for(int i =0 ; i < deptlist1.length ; i++ ){
-			deptlist1[i] = deptlist.get(i).getCode()+" "+deptlist.get(i).getName() ;	
+		for(DeptMember deptlist1 : deptlist){
+			dept.addItem( new DeptMember(deptlist1.getName(),deptlist1.getCode()) );
 		}
-		dept.setModel( new DefaultComboBoxModel(deptlist1));
 		
 		JLabel labelname = new JLabel( "이 름" );
 		labelname.setHorizontalAlignment(JLabel.CENTER);
@@ -112,11 +109,9 @@ public class Student implements ActionListener{
 		JComboBox professor = new JComboBox();
 		ArrayList<ProfMember> proflist = new ArrayList<ProfMember>();
 		proflist = service.comboProf();
-		String[] proflist1 = new String[proflist.size()] ;
-		for(int i =0 ; i< proflist1.length ; i++ ){
-			proflist1[i] = proflist.get(i).getName()+ " " +proflist.get(i).getCode() ;	
+		for(ProfMember proflist1 : proflist){
+			professor.addItem( new ProfMember( proflist1.getName(),proflist1.getCode() ) );
 		}
-		professor.setModel( new DefaultComboBoxModel(proflist1));
 		
 		panel1.add(labelcode);panel1.add(code);
 		panel1.add(labeldept);panel1.add(dept);
